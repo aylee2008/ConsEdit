@@ -7,7 +7,7 @@ Implementation of ConsEdit, based on original [instruct-pix2pix](https://github.
 
 Use this model for editing your own images by following the instructions below.
 
-### Set up a conda environment, and download the appropriate checkpoint:
+### Set up a conda environment, and download appropriate checkpoints:
 ```
 conda env create -f environment.yaml
 conda activate ip2p
@@ -36,19 +36,19 @@ bash scripts/TODO.sh
 
 Get outputs for calculating object-level metrics first.
 ```
-for i in "1.0" "1.2" "1.4" "1.6" "1.8" "2.0" "2.2"; do `python edit_cli.py --input data/metrics/test_images/ --output data/metrics/ip2p_outputs/ --edit data/metrics/test_edits.pickle --ckpt checkpoints/instruct-pix2pix-00-22000.ckpt --cfg-image ${i}`; done
+for i in {1.0,1.2,1.4,1.6,1.8,2.0,2.2}; do `python edit_cli.py --input data/metrics/test_images/ --output data/metrics/ip2p_outputs/ --edit data/metrics/test_edits.pickle --ckpt checkpoints/instruct-pix2pix-00-22000.ckpt --cfg-image ${i}`; done
 
-for i in "0.2" "0.6" "1.0" "1.4" "1.8" "2.2" "2.6" "3.0" "3.4" "3.8"; do `python edit_cli.py --input data/metrics/test_images/ --output data/metrics/cons_outputs/ --edit data/metrics/test_edits.pickle --ckpt checkpoints/epoch\=000032-step\=000019999.ckpt --cfg-image ${i}`; done
+for i in {0.2,0.6,1.0,1.4,1.8,2.2,2.6,3.0,3.4,3.8}; do `python edit_cli.py --input data/metrics/test_images/ --output data/metrics/cons_outputs/ --edit data/metrics/test_edits.pickle --ckpt checkpoints/epoch\=000032-step\=000019999.ckpt --cfg-image ${i}`; done
 ```
 
 Then get outputs for calculating image-level metrics.
 ```
-for i in "1.0" "1.2" "1.4" "1.6" "1.8" "2.0" "2.2"; do `python edit_cli.py --input data/ip2p_metrics/test_images/ --output data/ip2p_metrics/ip2p_outputs/ --edit data/ip2p_metrics/test_edits.pickle --ckpt checkpoints/instruct-pix2pix-00-22000.ckpt --cfg-image ${i}`; done
+for i in {1.0,1.2,1.4,1.6,1.8,2.0,2.2}; do `python edit_cli.py --input data/ip2p_metrics/test_images/ --output data/ip2p_metrics/ip2p_outputs/ --edit data/ip2p_metrics/test_edits.pickle --ckpt checkpoints/instruct-pix2pix-00-22000.ckpt --cfg-image ${i}`; done
 
-for i in "1.0" "1.2" "1.4" "1.6" "1.8" "2.0" "2.2"; do `python edit_cli.py --input data/ip2p_metrics/test_images/ --output data/ip2p_metrics/cons_outputs/ --edit data/ip2p_metrics/test_edits.pickle --ckpt checkpoints/epoch\=000032-step\=000019999.ckpt --cfg-image ${i}`; done
+for i in {1.0,1.2,1.4,1.6,1.8,2.0,2.2}; do `python edit_cli.py --input data/ip2p_metrics/test_images/ --output data/ip2p_metrics/cons_outputs/ --edit data/ip2p_metrics/test_edits.pickle --ckpt checkpoints/epoch\=000032-step\=000019999.ckpt --cfg-image ${i}`; done
 ```
 
-Note: This would take a long time. If more gpus are available, try to remove the for loop and process in parallel.
+Note: This would take a long time(more than 5 days or so). If more gpus are available, try to remove the for loop and process in parallel.
 
 ### Run YOLOv7
 
@@ -64,8 +64,12 @@ wget https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt
 
 Then run YOLOv7 for all of the scales
 ```
-bash TODO.sh
+for i in {1.0,1.2,1.4,1.6,1.8,2.0,2.2}; do python yolov7/detect.py --weights yolov7/yolov7.pt --conf 0.5 --img-size 640 --source data/metrics/ip2p_outputs/scale_${i}/ --save-txt; mv runs/detect/exp/ data/metrics/ip2p_outputs/yolov7_results_scale_${i}/; rm -r runs/; done
+
+for i in {0.2,0.6,1.0,1.4,1.8,2.2,2.6,3.0,3.4,3.8}; do python yolov7/detect.py --weights yolov7/yolov7.pt --conf 0.5 --img-size 640 --source data/metrics/cons_outputs/scale_${i}/ --save-txt; mv runs/detect/exp/ data/metrics/cons_outputs/yolov7_results_scale_${i}/; rm -r runs/; done
 ```
+
+Unlike running ConsEdit, you do not have to run this code in parallel since yolov7 is fast enough. It would take around 30 minutes to complete this process.
 
 ### Calculate & plot metrics
 
