@@ -1,5 +1,5 @@
 # On Consistency Training for Language-based Image Editing Interface
-### [Paper](TODO) | [Data](TODO)
+### [Paper](TODO) | [Data](https://mysnu-my.sharepoint.com/:f:/g/personal/aylee2020_seoul_ac_kr/EpYkQK9DWcZBhl0XjnqspnoBf9ujQGivLchXn0y15FC0wg?e=mIlSUy)
 
 Implementation of ConsEdit, based on original [instruct-pix2pix](https://github.com/timothybrooks/instruct-pix2pix) repository.
 
@@ -81,7 +81,7 @@ Unlike running ConsEdit, you do not have to run this code in parallel since yolo
 ### Calculate & plot metrics
 
 ```
-for i in {0..6}; do `python metrics/img_metrics.py --gpu ${i} 2>&1 &`; done # should have at least 7 gpus
+for i in {0..6}; do `python metrics/img_metrics.py --gpu ${i} > results_${i}.txt 2>&1 &`; done # should have at least 7 gpus
 python metrics/obj_metrics.py
 python plot_metrics.py
 ```
