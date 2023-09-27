@@ -10,7 +10,7 @@ Use this model for editing your own images by following the instructions below.
 ### Set up a conda environment, and download appropriate checkpoints:
 ```
 conda env create -f environment.yaml
-conda activate ip2p
+conda activate cons
 bash scripts/download_checkpoints.sh
 ```
 
