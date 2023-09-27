@@ -11,7 +11,7 @@ Use this model for editing your own images by following the instructions below.
 ```
 conda env create -f environment.yaml
 conda activate ip2p
-bash scripts/TODO.sh
+bash scripts/download_checkpoints.sh
 ```
 
 ### Edit a single image:
@@ -29,7 +29,7 @@ Our code for calculating metrics are included in the `metrics` folder. We calcul
 ### Download test dataset
 
 ```
-bash scripts/TODO.sh
+bash scripts/download_data.sh
 ```
 
 ### Run ConsEdit
@@ -62,7 +62,14 @@ pip install -r requirements.txt
 wget https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt
 ```
 
-Then run YOLOv7 for all of the scales
+Run YOLOv7 for test images.
+
+```
+python yolov7/detect.py --weights yolov7/yolov7.pt --conf 0.5 --img-size 640 --source data/metrics/test_images/ --save-txt
+mv runs/detect/exp/ data/metrics/test_yolov7_results/
+```
+
+Then run YOLOv7 for all of the scales.
 ```
 for i in {1.0,1.2,1.4,1.6,1.8,2.0,2.2}; do python yolov7/detect.py --weights yolov7/yolov7.pt --conf 0.5 --img-size 640 --source data/metrics/ip2p_outputs/scale_${i}/ --save-txt; mv runs/detect/exp/ data/metrics/ip2p_outputs/yolov7_results_scale_${i}/; rm -r runs/; done
 

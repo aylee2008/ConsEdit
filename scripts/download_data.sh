@@ -3,25 +3,9 @@
 # Make data folder relative to script location
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-mkdir -p $SCRIPT_DIR/../data
+mkdir -p $SCRIPT_DIR/../data/
 
-# Copy text datasets
-wget -q --show-progress http://instruct-pix2pix.eecs.berkeley.edu/gpt-generated-prompts.jsonl -O $SCRIPT_DIR/../data/gpt-generated-prompts.jsonl
-wget -q --show-progress http://instruct-pix2pix.eecs.berkeley.edu/human-written-prompts.jsonl -O $SCRIPT_DIR/../data/human-written-prompts.jsonl
+wget "https://mysnu-my.sharepoint.com/:u:/g/personal/aylee2020_seoul_ac_kr/Eflw-aVmqCxAqO2tron2kBgB6TVKPuz2Q_sHwM5DoBqYRQ?e=uCXdpY&download=1" -O $SCRIPT_DIR/../data/ip2p_metrics.zip
+wget "https://mysnu-my.sharepoint.com/:u:/g/personal/aylee2020_seoul_ac_kr/ERBqJM-iEshAuKdY4-5joD0Bft20Y8ZzIpPgWNdnjNx23w?e=OIFpw6&download=1" -O $SCRIPT_DIR/../data/metrics.zip
 
-# If dataset name isn't provided, exit. 
-if [ -z $1 ] 
-then 
-	exit 0 
-fi
-
-# Copy dataset files
-mkdir $SCRIPT_DIR/../data/$1
-wget -A zip,json -R "index.html*" -q --show-progress -r --no-parent http://instruct-pix2pix.eecs.berkeley.edu/$1/ -nd -P $SCRIPT_DIR/../data/$1/
-
-# Unzip to folders
-unzip $SCRIPT_DIR/../data/$1/\*.zip -d $SCRIPT_DIR/../data/$1/
-
-# Cleanup
-rm -f $SCRIPT_DIR/../data/$1/*.zip
-rm -f $SCRIPT_DIR/../data/$1/*.html
+unzip $SCRIPT_DIR/../data/\*.zip -d $SCRIPT_DIR/../data/$1/
