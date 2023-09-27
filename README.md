@@ -67,6 +67,7 @@ Run YOLOv7 for test images.
 ```
 python yolov7/detect.py --weights yolov7/yolov7.pt --conf 0.5 --img-size 640 --source data/obj_metrics/test_images/ --save-txt
 mv runs/detect/exp/ data/obj_metrics/test_yolov7_results/
+rm -r runs/
 ```
 
 Then run YOLOv7 for all of the scales.
@@ -83,7 +84,7 @@ Unlike running ConsEdit, you do not have to run this code in parallel since yolo
 ```
 for i in {0..6}; do `python metrics/img_metrics.py --gpu ${i} > results_${i}.txt 2>&1 &`; done # should have at least 7 gpus
 python metrics/obj_metrics.py
-python plot_metrics.py
+python metrics/plot_metrics.py
 ```
 
 ## Acknowledgements

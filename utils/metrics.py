@@ -108,7 +108,10 @@ def calc_tough_acc(input_img_dir, output_img_dir, test_classes_path, \
     input_files = sorted(os.listdir(input_img_dir))
     output_files = sorted(os.listdir(output_img_dir))
     
-    assert len(input_files) == len(output_files)
+    if not len(input_files) == len(output_files):
+        print("Warning: input files and output files are not equal. Returning zero instead. You can ignore this warning when processing filtering dataset")
+        return 0
+    
     tot_num = len(input_files)
     acc_num = 0
 
@@ -212,7 +215,9 @@ def calc_soft_acc(input_img_dir, output_img_dir, test_classes_path, \
     input_files = sorted(os.listdir(input_img_dir))
     output_files = sorted(os.listdir(output_img_dir))
     
-    assert len(input_files) == len(output_files)
+    if not len(input_files) == len(output_files):
+        print("Warning: input files and output files are not equal. Returning zero instead. You can ignore this warning when processing filtering dataset")
+        return 0
     tot_num = len(input_files)
     acc_num = 0
 

@@ -167,11 +167,11 @@ if __name__ == "__main__":
         },
         True: {
             "ip2p": {
-                scale: FILTERED_FOR_CSFID_LPIPS_IP2P + "scale_" + scale + ".pickle" \
+                scale: FILTERED_FOR_CSFID_LPIPS_IP2P + "output/scale_" + scale + ".pickle" \
                 for scale in ip2p_scales
             },
             "cons": {
-                scale: FILTERED_FOR_CSFID_LPIPS_OURS + "scale_" + scale + ".pickle" \
+                scale: FILTERED_FOR_CSFID_LPIPS_OURS + "output/scale_" + scale + ".pickle" \
                 for scale in cons_scales
             }
         }
