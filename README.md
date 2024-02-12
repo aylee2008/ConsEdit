@@ -95,5 +95,11 @@ python metrics/plot_metrics.py
 ## BibTeX
 
 ```
-TODO
+@inproceedings{lee2023consistency,
+  title={On Consistency Training for Language-Based Image Editing Interface},
+  author={Lee, Youngwon and Lee, Ayoung and Jung, Yeonjoon and Hwang, Seung-won},
+  booktitle={Proceedings of the Second Workshop on Natural Language Interfaces},
+  pages={22--30},
+  year={2023}
+}
 ```
