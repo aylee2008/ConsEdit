@@ -1,5 +1,5 @@
 # On Consistency Training for Language-based Image Editing Interface
-### [Paper](https://aclanthology.org/2023.nlint-1.2/) | [Data](https://mysnu-my.sharepoint.com/:f:/g/personal/aylee2020_seoul_ac_kr/EpYkQK9DWcZBhl0XjnqspnoBf9ujQGivLchXn0y15FC0wg?e=mIlSUy)
+### [Paper](https://aclanthology.org/2023.nlint-1.2/) | [Data](https://drive.google.com/drive/folders/1oJqr35z07-la_9188SHQpkAs6L8PqA6H?usp=sharing)
 
 Implementation of ConsEdit, based on original [instruct-pix2pix](https://github.com/timothybrooks/instruct-pix2pix) repository.
 
